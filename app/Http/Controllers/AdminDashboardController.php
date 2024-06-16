@@ -2,12 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Quiz;
 use Illuminate\Http\Request;
 
-class QuizController extends Controller
+class AdminDashboardController extends Controller
 {
-    /**
+        /**
      * Display a listing of the resource.
      */
     public function index()

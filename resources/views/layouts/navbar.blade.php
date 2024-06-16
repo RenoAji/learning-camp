@@ -52,7 +52,7 @@
           @endguest
         </ul>
       </div>
-      <a class="btn btn-ghost text-xl">daisyUI</a>
+      <a class="btn btn-ghost text-xl" href="/">LearningCamp</a>
     </div>
     <div class="navbar-end hidden lg:flex">
       <ul class="menu menu-horizontal px-1">
