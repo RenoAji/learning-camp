@@ -25,9 +25,9 @@ class UserController extends Controller
         
         $validated['password'] = bcrypt($validated['password']);
         $user = User::create($validated);
-        event(new Registered($user));
+        //event(new Registered($user));
 
-        return redirect()->route("verification.notice");
+        return redirect()->route("login");
     }
 
     function viewLogin()
@@ -45,15 +45,21 @@ class UserController extends Controller
         if (Auth::attempt($credentials,$request->remember)) {
             $request->session()->regenerate();
  
-            return redirect()->intended('/dashboard');
+            return redirect()->intended('/');
         }
  
         return back()->withErrors([
             'email' => 'The provided credentials do not match our records.',
         ])->onlyInput('email');
     }
-    function logout()
+    function logout(Request $request)
     {
-        //
+        Auth::logout();
+ 
+        $request->session()->invalidate();
+     
+        $request->session()->regenerateToken();
+     
+        return redirect('/');
     }
 }

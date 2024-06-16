@@ -15,10 +15,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->string('name');
-            $table->string('description');
-            $table->boolean('is_free');
-            $table->boolean('is_published');
-            $table->integer('sections');
+            $table->string('description', 500);
+            $table->integer('price')->default(0);
+            $table->timestamp('published_at')->nullable();
         });
     }
 

@@ -8,35 +8,37 @@
         </div>
         <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-neutral text-neutral-content rounded-box w-52">
           <li><a>Home</a></li>
-          <li><a>Course</a></li>
+          <li><a href="/course">Course</a></li>
           @auth
-          <details>
-              <summary>
-                  {{auth()->user()->username}}
-              </summary>
-              <ul class="p-2 bg-neutral text-neutral-content rounded-t-none">
-                  <li>
-                      <form action="/logout" method="POST">
-                          <button type="submit" class="btn btn-outline btn-error">Logout</button>
-                      </form>
-                  </li>
-              </ul>
-            </details>
-
             @if (auth()->user()->is_admin)
             <details>
                 <summary>
                     {{auth()->user()->username}}
                 </summary>
                 <ul class="p-2 bg-neutral text-neutral-content rounded-t-none">
-                    <li><a>Admin Dashboard</a></li>
+                    <li><a href="/admin-dashboard">Admin Dashboard</a></li>
                     <li>
                         <form action="/logout" method="POST">
+                            @csrf
                             <button type="submit" class="btn btn-error">Logout</button>
                         </form>
                     </li>
                 </ul>
               </details>
+            @else
+            <details>
+              <summary>
+                  {{auth()->user()->username}}
+              </summary>
+              <ul class="p-2 bg-neutral text-neutral-content rounded-t-none">
+                  <li>
+                      <form action="/logout" method="POST">
+                          @csrf
+                          <button type="submit" class="btn btn-outline btn-error">Logout</button>
+                      </form>
+                  </li>
+              </ul>
+            </details>
             @endif
           @endauth
 
@@ -57,40 +59,40 @@
     <div class="navbar-end hidden lg:flex">
       <ul class="menu menu-horizontal px-1">
         <li><a>Home</a></li>
-        <li><a>Course</a></li>
+        <li><a href="/course">Course</a></li>
         <li>
             @auth
-            <details>
+              @if (auth()->user()->is_admin)
+              <details>
+                  <summary>
+                      {{auth()->user()->username}}
+                  </summary>
+                  <ul class="p-2 bg-neutral text-neutral-content rounded-t-none mr-10">
+                      <li><a href="/admin-dashboard">Admin Dashboard</a></li>
+                      <li>
+                          <form action="/logout" method="POST">
+                              @csrf
+                              <button type="submit" class="btn btn-error">Logout</button>
+                          </form>
+                      </li>
+                  </ul>
+                </details>
+              @else
+              <details>
                 <summary>
                     {{auth()->user()->username}}
                 </summary>
                 <ul class="p-2 bg-neutral text-neutral-content rounded-t-none">
                     <li>
                         <form action="/logout" method="POST">
+                            @csrf
                             <button type="submit" class="btn btn-outline btn-error">Logout</button>
                         </form>
                     </li>
                 </ul>
               </details>
-
-
-              @if (auth()->user()->is_admin)
-              <details>
-                  <summary>
-                      {{auth()->user()->username}}
-                  </summary>
-                  <ul class="p-2 bg-neutral text-neutral-content rounded-t-none">
-                      <li><a>Admin Dashboard</a></li>
-                      <li>
-                          <form action="/logout" method="POST">
-                              <button type="submit" class="btn btn-error">Logout</button>
-                          </form>
-                      </li>
-                  </ul>
-                </details>
               @endif
             @endauth
-
             @guest
             <details>
                 <summary>
