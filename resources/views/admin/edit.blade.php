@@ -55,6 +55,10 @@
                         </button>  
                     </div>
                 </h1>
+                <label class="input input-bordered flex items-center gap-2">
+                    Minimum Grade:
+                    <input type="number" class="grow" placeholder="minimum grade for student to pass" name="sections[{{$i}}][minimum_grade]" value="{{$section->minimum_grade}}" min=0 max=100 required />
+                </label>
                 <p>Check the radio button to set the correct answer</p>
             @foreach ($section->questions as $j=>$question)
                 

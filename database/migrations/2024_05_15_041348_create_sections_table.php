@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->integer('chapter');
+            $table->integer('minimum_grade')->nullable();
             $table->string('title');
             $table->text('content');
             $table->foreignId('course_id')->constrained()->onDelete('cascade');

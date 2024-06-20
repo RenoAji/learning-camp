@@ -28,6 +28,11 @@
             Harga Course : {{$course->price}}
         </p>
         @if (!is_null($enrollment))
+            <div class="p-3">
+                <h2>Progress : </h2>
+                <progress class="progress progress-success border w-56 border-slate-300" value={{$enrollment->sections_completed}} max={{$course->sections->count()}}></progress>
+                <h2>{{floor($enrollment->sections_completed / $course->sections->count() * 100)}}%</h2>
+            </div>
             @if ($enrollment->sections_completed == count($course->sections))
             Anda sudah menyelesaikan course ini
             <a class="btn btn-info mt-3" href="/course/section/{{$course->sections->first()->id}}">Review</a>

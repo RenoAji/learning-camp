@@ -36,8 +36,8 @@ class CourseController extends Controller
         $results = Result::where('section_id', $section->id)->where('user_id', auth()->user()->id)->get();
 
         if($enrollment->first()->sections_completed == $section->chapter-2){
-            if($previous_section->questions->count() > 0 && $previous_section->results->count()==0){
-                $request->session()->flash('message', 'Kerjakan Quiz Sebelum Melanjutkan');
+            if($previous_section->questions->count() > 0 && $previous_section->results->where('correct_answer', '>=', $section->minimum_grade/100 * $section->questions->count())->count()==0){
+                $request->session()->flash('message', 'Selesaikan Quiz Sebelum Melanjutkan');
                 $request->session()->flash('alert', 'alert-warning');
                 return redirect()->back();
             }
@@ -64,44 +64,48 @@ class CourseController extends Controller
             'answers.*' => 'required',
         ]);
 
+        $section = Section::where('id',$validated['section_id'])->first();
+        $correct = Answer::whereIn('id',$validated['answers'])->where('is_correct', true)->count();
+        $result_id = Result::insertGetId(['correct_answer' => $correct,
+                        'section_id' => $validated['section_id'],
+                        'user_id' => auth()->user()->id,
+                        'enrollment_id' => Enrollment::where('course_id', $section->course_id)->where('user_id',auth()->user()->id)->value('id'),
+                        'created_at' => date('Y-m-d H:i:s'),
+                        'updated_at' => date('Y-m-d H:i:s'),]);
+
         $records = [];
         foreach($validated['answers'] as $answer){
             $records[] = [
                 'user_id' => auth()->user()->id,
                 'answer_id' => $answer,
+                'result_id' => $result_id,
                 'created_at' => date('Y-m-d H:i:s'),
                 'updated_at' => date('Y-m-d H:i:s'),
             ];
         }
 
-
         UserAnswer::insert($records);
-        $correct = Answer::whereIn('id',$validated['answers'])->where('is_correct', true)->count();
-        Result::insert(['correct_answer' => $correct,
-                        'section_id' => $validated['section_id'],
-                        'user_id' => auth()->user()->id,
-                        'created_at' => date('Y-m-d H:i:s'),
-                        'updated_at' => date('Y-m-d H:i:s'),]);
 
         return redirect('course/section/'.$validated['section_id']);
     }
 
-    function result(){
-        
+    function result(Result $result){
+        $section = $result->section->load('questions.answers');
+        return view('review-result', ['section' => $section, 'result' => $result, 'user_answers' => $result->user_answers->pluck('answer_id')]);
     }
 
     function finish(Request $request ,Course $course) { //Finish Course
         $enrollment = Enrollment::where('course_id', $course->id)->where('user_id',auth()->user()->id)->first();
-        $section = Section::where('course_id', $course->id)->orderBy('chapter','desc')->first(); //Last Section in this course
+        $section = Section::where('course_id', $course->id)->orderBy('chapter','desc')->with('questions')->first(); //Last Section in this course
         if ($enrollment->sections_completed !== $course->sections->count()-1) {
             $request->session()->flash('message', 'Selesaikan Section Sebelumnya');
             $request->session()->flash('alert', 'alert-warning');
             return redirect()->back();
         }
 
-        $result = Result::where('section_id', $section->id)->where('user_id', auth()->user()->id);
+        $result = Result::where('section_id', $section->id)->where('user_id', auth()->user()->id)->where('correct_answer', '>=', $section->minimum_grade/100 * $section->questions->count());
         if($section->questions->count() > 0 && $result->doesntExist()){
-            $request->session()->flash('message', 'Kerjakan Quiz Sebelum Melanjutkan');
+            $request->session()->flash('message', 'Selesaikan Quiz Sebelum Melanjutkan');
             $request->session()->flash('alert', 'alert-warning');
             return redirect()->back();
         }
@@ -109,7 +113,7 @@ class CourseController extends Controller
 
 
         $enrollment->increment('sections_completed');
-        return redirect('course/$course->id');
+        return redirect("course/$course->id");
     }
 
 }

@@ -57,9 +57,10 @@
             <tr>
                 <th>Chapter</th>
                 <th>Section Title</th>
-                <td>Section's Quiz</td>
+                <th>Section's Quiz</th>
             </tr>
             @foreach ($course->sections as $s)
+            <tr>
                 <td>{{$s->chapter}}</td>
                 <td>{{$s->title}}</td>
                 <td>
@@ -91,6 +92,7 @@
                         -
                     @endif
                 </td>
+            </tr>
             @endforeach
         </tbody>
     </table> 

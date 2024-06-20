@@ -44,6 +44,7 @@ class AdminDashboardController extends Controller
             'description' => 'required',
             'sections' => 'array|min:1|required',
             'sections.*' => 'array:title,questions,content',
+            'sections.*.minimum_grade' => 'sometimes|required',
             'sections.*.content' => 'required|max:65500',
             'sections*.questions' => 'nullable',
             'sections.*.questions.*' => 'sometimes|required|array:answers,correct,question',
@@ -73,6 +74,7 @@ class AdminDashboardController extends Controller
                 'chapter' => $i+1,
                 'title' => $section['title'],
                 'content' => $section['content'],
+                'minimum_grade' => isset($section['minimum_grade'])? $section['minimum_grade'] : null,
                 'course_id' => $course->id,
             ]);
             if(isset($section['questions'])){
@@ -95,7 +97,7 @@ class AdminDashboardController extends Controller
         $request->session()->flash('message', 'Course berhasil ditambahkan');
         $request->session()->flash('alert', 'alert-success');
 
-            // Respond with a JSON indicating a redirect
+        // Respond with a JSON indicating a redirect
         return response()->json(['redirect' => url('/admin-dashboard')]);
         //return redirect('/admin-dashboard');
     }
@@ -136,6 +138,8 @@ class AdminDashboardController extends Controller
             'sections' => 'array|min:1|required',
             'sections*' => 'array:title,questions,content,id,sectionId',
             'sections*.questions' => 'nullable',
+            'sections.*.content' => 'required|max:65500',
+            'sections.*.minimum_grade' => 'sometimes|required',
             'sections.*.questions.*' => 'sometimes|array:answers,correct,question,questionId',
             'sections.*.*' => 'sometimes|required',
             'sections.*.questions.*.answers' => [new AnswerTextUnique, 'array', 'min:2'],
@@ -144,8 +148,8 @@ class AdminDashboardController extends Controller
 
         
         if ($validator->stopOnFirstFailure()->fails()) {
-            $errors = $validator->errors();
-            return response()->json(['message' => $errors->first()]);
+                $errors = $validator->errors();
+                return response()->json(['message' => $errors->first()]);
             }
             
         $validated = $validator->validated();
@@ -205,12 +209,14 @@ class AdminDashboardController extends Controller
                 'chapter' => $i+1,
                 'title' => $section['title'],
                 'content' => $section['content'],
+                'minimum_grade' => isset($section['minimum_grade'])? $section['minimum_grade'] : null,
             ]);
         }else{
             $section_model = Section::create([
                 'chapter' => $i+1,
                 'title' => $section['title'],
                 'content' => $section['content'],
+                'minimum_grade' => isset($section['minimum_grade'])? $section['minimum_grade'] : null,
                 'course_id' => $course->id,
             ]);
         }

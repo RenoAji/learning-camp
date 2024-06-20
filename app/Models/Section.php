@@ -10,7 +10,7 @@ use  Illuminate\Database\Eloquent\Relations\HasMany;
 class Section extends Model
 {
     use HasFactory;
-    protected $fillable = ['title', 'chapter', 'course_id', 'content'];
+    protected $fillable = ['title', 'chapter', 'course_id', 'content', 'minimum_grade'];
 
     public function course(): BelongsTo
     {

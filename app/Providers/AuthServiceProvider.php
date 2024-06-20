@@ -30,7 +30,7 @@ class AuthServiceProvider extends ServiceProvider
         // });
 
         Gate::define('learn-course', function (User $user, Course $course) {
-            return $user->is_admin || Enrollment::where('user_id', $user->id)->where('course_id', $course->id)->exists();
+            return Enrollment::where('user_id', $user->id)->where('course_id', $course->id)->exists();
         });
 
     }

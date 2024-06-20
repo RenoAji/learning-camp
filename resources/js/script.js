@@ -116,6 +116,8 @@ function addSection(){
 }
 
 function addQuiz(e){
+    const sectionElement = e.currentTarget.closest('[data-element="section"]');
+    const section = Array.prototype.indexOf.call(document.querySelectorAll('[data-element="section"]'),sectionElement); //Section Index
     const createQuiz = document.createElement('div');
     createQuiz.classList.add('border', 'border-slate-400', 'ml-3', 'm-2', 'space-y-2', 'p-2');
     createQuiz.setAttribute('data-element', 'quiz');
@@ -127,6 +129,10 @@ function addQuiz(e){
                                     </button>  
                                 </div>
                             </h1>
+                            <label class="input input-bordered flex items-center gap-2">
+                                Minimum Grade:
+                                <input type="number" class="grow" placeholder="minimum grade for student to pass" name="sections[${section}][minimum_grade]" min=0 max=100 required />
+                            </label>
                             <p>Check the radio button to set the correct answer</p>
 
                             <button class="btn btn-active btn-neutral mt-1" type="button" data-action="add-question">

@@ -62,7 +62,9 @@ Route::controller(App\Http\Controllers\CourseController::class)->group(function 
     Route::get('course/finish/{course}', 'finish');
 });
 
-
+Route::controller(App\Http\Controllers\HomeController::class)->group(function () {
+    Route::get('/home', 'home');
+});
 
 Route::controller(App\Http\Controllers\EnrollmentController::class)->group(function () {
     Route::get('enroll/{course}', 'enroll');

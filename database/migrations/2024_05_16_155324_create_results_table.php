@@ -16,6 +16,7 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('section_id')->constrained()->onDelete('cascade');
+            $table->foreignId('enrollment_id')->constrained()->onDelete('cascade');
             $table->integer('correct_answer');
         });
     }
