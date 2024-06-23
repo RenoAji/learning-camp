@@ -52,7 +52,7 @@ class EnrollmentController extends Controller
                 'id' => $course->id,
                 'price' => $course->price,
                 'quantity' => 1,
-                'name' => "Course: $course->name"]];
+                'name' => "Course"]];
 
             $params = array(
                 'transaction_details' => $transaction_details,
@@ -62,6 +62,7 @@ class EnrollmentController extends Controller
 
             //dd($params);
             try {
+                
               // Get Snap Payment Page URL
               $paymentUrl = Snap::createTransaction($params)->redirect_url;
               
