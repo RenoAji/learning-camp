@@ -60,7 +60,7 @@ Route::controller(App\Http\Controllers\CourseController::class)->group(function 
     Route::post('course/quiz/{section}', 'submitQuiz');
     Route::get('course/review/{result}', 'result');
     Route::get('course/finish/{course}', 'finish');
-});
+})->middleware(['auth']);
 
 Route::controller(App\Http\Controllers\HomeController::class)->group(function () {
     Route::get('/home', 'home');
