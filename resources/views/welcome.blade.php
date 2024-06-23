@@ -5,15 +5,15 @@
       <div class="sm:max-w-md">
         <h1 class="text-5xl font-bold">LearningCamp</h1>
         <p class="py-6">Di LearningCamp anda bisa membeli course yang anda inginkan. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quasi ipsam dolorem veniam quisquam consectetur.</p>
-        <button class="btn btn-primary"><a href="/course">Lihat Course Kami</a></button>
+        <a class="btn btn-primary" href="/course">Lihat Course Kami</a>
         @guest
         <br>
-        <button class="btn btn-primary mt-3 btn-outline"><a href="/login">Login</a></button>
+        <a class="btn btn-primary mt-3 btn-outline" href="/login">Login</a>
         @endguest
         @auth
           @if (auth()->user()->is_admin)
           <br>
-          <button class="btn btn-primary mt-3 btn-outline"><a href="/admin-dashboard">Admin Dashboard</a></button>
+          <a class="btn btn-primary mt-3 btn-outline" href="/admin-dashboard">Admin Dashboard</a>
           @endif
         @endauth
       </div>

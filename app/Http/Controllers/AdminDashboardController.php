@@ -116,7 +116,7 @@ class AdminDashboardController extends Controller
      */
     public function edit(Course $course)
     {
-       // Gate::authorize('edit-course', $course);
+        Gate::authorize('edit-course', $course);
         return view('admin.edit',['course'=>$course]);
     }
 
@@ -125,7 +125,7 @@ class AdminDashboardController extends Controller
      */
     public function update(Request $request, Course $course)
     {
-        //Gate::authorize('edit-course', $course);
+        Gate::authorize('edit-course', $course);
         //$course->load(['sections.questions.answers']);
         $validator = Validator::make($request->all(),[
             'sections.*.questions.*.answers.*answerId' => 'sometimes',
