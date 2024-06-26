@@ -27,6 +27,7 @@
 
         </div>
         <div class="text-xl p-3"> 
+            <h1 class="text-2xl font-semibold text-center">{{$section->title}}</h1>
             {!! $section->content !!} 
             @if ($section->questions->count() > 0)
 
@@ -38,11 +39,11 @@
                 </ul>
             </div>
 
-            <div>
-                <a class="btn btn-neutral text-xl hover:scale-105 transition m-5 float-right" href="/course/quiz/{{$section->id}}" >
+            <div class="text-right">
+                <a class="btn btn-neutral text-xl hover:scale-105 transition m-5" href="/course/quiz/{{$section->id}}" >
                     Kerjakan Quiz                
                 </a>
-            </div>  
+            </div> 
             @endif
 
             @if ($results->count() > 0)
@@ -117,7 +118,7 @@
     </div> 
     <div class="drawer-side">
       <label for="my-drawer-2" aria-label="close sidebar" class="drawer-overlay"></label> 
-      <ul class="menu p-4 w-80 min-h-full bg-neutral border-slate-300 border text-neutral-content">
+      <ul class="menu p-4 w-80 min-h-full bg-neutral border-slate-300 border text-neutral-content gap-y-1">
         <!-- Sidebar content here -->
             <li class="flex-col pb-2 content-center">
                 <h1 class="text-xl">Course Progress</h1>
@@ -127,7 +128,7 @@
                 </div>
             </li>
         @foreach ($course->sections as $s)
-            <li>
+            <li class="border border-slate-600 rounded-md hover:bg-slate-600">
                 <a href="/course/section/{{$s->id}}">{{$s->title}}
                 @if ($s->chapter <= $enrollment->sections_completed)
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6 stroke-green-500">
@@ -135,7 +136,6 @@
                     </svg>
                 @endif
                 </a>
-
             </li>
         @endforeach
       </ul>  
