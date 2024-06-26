@@ -333,8 +333,9 @@ function uploadFile(file, progressCallback, successCallback) {
     formData.append("file", file)
 
     var xhr = new XMLHttpRequest()
-    xhr.open("POST", "/attachment", true)
-    xhr.setRequestHeader('X-CSRF-TOKEN', '{{ csrf_token() }}')
+    xhr.open("post", "/attachment", true)
+    const csrf_token = document.getElementsByName('csrf-token')[0].content;
+    xhr.setRequestHeader('X-CSRF-TOKEN', csrf_token)
 
     xhr.upload.addEventListener("progress", function(event) {
         var progress = event.loaded / event.total * 100
@@ -343,10 +344,10 @@ function uploadFile(file, progressCallback, successCallback) {
 
     xhr.addEventListener("load", function(event) {
         if (xhr.status == 200) {
-            var response = JSON.parse(xhr.responseText)
+            var response = xhr.responseText;
             var attributes = {
-                url: response.url,
-                href: response.url + "?content-disposition=attachment"
+                url: response,
+                href: response + "/?content-disposition=attachment"
             }
             successCallback(attributes)
         }
