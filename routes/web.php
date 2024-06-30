@@ -67,7 +67,7 @@ Route::controller(App\Http\Controllers\HomeController::class)->group(function ()
 });
 
 Route::controller(App\Http\Controllers\EnrollmentController::class)->group(function () {
-    Route::get('enroll/{course}', 'enroll');
+    Route::get('enroll/{course}', 'enroll')->middleware('auth');
 
     //Midtrans Notif Handler
     Route::post('/midtrans/notification',  'notificationHandler');

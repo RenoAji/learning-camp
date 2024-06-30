@@ -21,9 +21,14 @@ class CourseController extends Controller
     }
 
     function show(Course $course){ //show specified course detail
+        if (Auth::check()) {
+            $enrollment = $course->enrollments->where('user_id',auth()->user()->id)->first();
+        }else{
+            $enrollment = null;
+        }
         return view('course-detail',[
                                     'course' => $course->load('sections'), 
-                                    'enrollment'=>$course->enrollments->where('user_id',auth()->user()->id)->first()]);
+                                    'enrollment'=> $enrollment]);
     }
 
     function learn(Request $request ,Section $section){ //learn course, access specified section content

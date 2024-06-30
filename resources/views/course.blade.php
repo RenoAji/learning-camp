@@ -33,9 +33,11 @@
             @if ($course->price == 0)
             <div class="badge badge-outline badge-primary">Free Course</div>  
             @endif
-            @if ($course->enrollments->where('user_id',auth()->user()->id)->count()>0)
-            <div class="badge badge-outline badge-info">Terdaftar</div>  
-            @endif
+            @auth                
+                @if ($course->enrollments->where('user_id',auth()->user()->id)->count()>0)
+                <div class="badge badge-outline badge-info">Terdaftar</div>  
+                @endif
+            @endauth
         </div>
     </a>
 </div> 

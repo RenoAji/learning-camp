@@ -51,4 +51,5 @@
     </svg>
     Kembali ke daftar course
 </a>
+<p class="p-3">Note : Di Aplikasi Demo ini Anda bisa mensimulasi pembayaran dengan <a target="_blank" class="link" href="https://simulator.sandbox.midtrans.com/">Midtrans Payment Simulator</a></p>
 @endsection
