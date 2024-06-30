@@ -10,20 +10,21 @@
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" action="" method="POST">
         @csrf
-  
-        <div>
-            <label class="input input-bordered flex items-center gap-2">
-                Email :
-                <input type="email" class="grow @error('email')input-error @enderror" placeholder="example.site.com" name="email" value="{{old('email')}}"/>
-            </label>
-        </div>
 
-        <div>
-            <label class="input input-bordered flex items-center gap-2">
-                Password :
-                <input type="password" class="grow @error('email')input-error @enderror" name="password" />
-            </label>
-        </div>
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Email :</span>
+          </div>
+          <input type="email" class="w-full max-w-xs input input-bordered grow @error('email')input-error @enderror" placeholder="example.site.com" name="email" value="{{old('email')}}"/>
+        </label>
+
+        <label class="form-control w-full max-w-xs">
+          <div class="label">
+            <span class="label-text">Password :</span>
+          </div>
+          <input type="password" class="w-full max-w-xs input input-bordered grow @error('email')input-error @enderror" name="password" />
+        </label>
+      
 
         <div class="w-1/2">
           <label class="label cursor-pointer gap-2 justify-normal">

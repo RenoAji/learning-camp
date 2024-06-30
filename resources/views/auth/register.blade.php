@@ -8,33 +8,35 @@
     <div class="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
       <form class="space-y-6" action="" method="POST">
         @csrf
-        <div>
-            <label class="input input-bordered flex items-center gap-2">
-                Username :
-                <input type="text" class="grow" placeholder="username" name="username" />
-            </label>
-        </div>
+
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+              <span class="label-text">Username :</span>
+            </div>
+            <input type="text" class="w-full max-w-xs input input-bordered grow @error('email')input-error @enderror" placeholder="username" name="username" value="{{old('username')}}" />
+        </label>
   
-        <div>
-            <label class="input input-bordered flex items-center gap-2">
-                Email :
-                <input type="email" class="grow" placeholder="example.site.com" name="email"/>
-            </label>
-        </div>
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+              <span class="label-text">Email :</span>
+            </div>
+            <input type="email" class="w-full max-w-xs input input-bordered grow @error('email')input-error @enderror" placeholder="example.site.com" name="email" value="{{old('email')}}"/>
+        </label>
+  
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+                <span class="label-text">Password :</span>
+            </div>
+            <input type="password" class="w-full max-w-xs input input-bordered grow @error('email')input-error @enderror" name="password" />
+        </label>
 
-        <div>
-            <label class="input input-bordered flex items-center gap-2">
-                Password :
-                <input type="password" class="grow" name="password" />
-            </label>
-        </div>
 
-        <div>
-            <label class="input input-bordered flex items-center gap-2">
-                Confirm Password :
-                <input type="password" class="grow" name="confirm_password" />
-            </label>
-        </div>
+        <label class="form-control w-full max-w-xs">
+            <div class="label">
+                <span class="label-text">Confirm Password :</span>
+            </div>
+            <input type="password" class="w-full max-w-xs input input-bordered grow @error('email')input-error @enderror" name="confirm_password" />
+        </label>
   
         <div>
             <button class="btn btn-wide btn-primary flex justify-center m-auto" type="submit">Sign Up</button>
