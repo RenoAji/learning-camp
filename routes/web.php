@@ -63,7 +63,7 @@ Route::controller(App\Http\Controllers\CourseController::class)->group(function 
 })->middleware(['auth']);
 
 Route::controller(App\Http\Controllers\HomeController::class)->group(function () {
-    Route::get('/home', 'home');
+    Route::get('/home', 'home')->middleware('auth');
 });
 
 Route::controller(App\Http\Controllers\EnrollmentController::class)->group(function () {

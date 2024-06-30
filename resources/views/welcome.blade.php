@@ -2,7 +2,7 @@
 @section('body')
 <div class="hero min-h-screen bg-base-200 w-full">
     <div class="hero-content text-center">
-      <div class="sm:max-w-md">
+      <div class="md:max-w-lg max-w-100vw">
         <h1 class="text-5xl font-bold">LearningCamp</h1>
         <p class="py-6">Di LearningCamp anda bisa membeli course yang anda inginkan. Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo quasi ipsam dolorem veniam quisquam consectetur.</p>
         <a class="btn btn-primary" href="/course">Lihat Course Kami</a>
