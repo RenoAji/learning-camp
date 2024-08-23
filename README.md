@@ -1,6 +1,6 @@
 ## Admin Login
 - Email : admin@gmail.com
-- Password : adminpass1234
+- Password : admin1234
 
 ## Feature
 - Create Course
